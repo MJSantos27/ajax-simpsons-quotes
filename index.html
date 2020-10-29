@@ -23,6 +23,7 @@
       integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="styles.css" />
     <style></style>
   </head>
 
@@ -30,8 +31,10 @@
     <section class="section">
       <div class="container">
         <h1 class="title">Simpson API</h1>
-
-        <div class="content" id="chuck-norris"></div>
+        <div class="content" id="simpsonsQuote"></div>
+        <button onClick="fetchSimpsonJSON()">
+          What delicious quote! I want 1 more!
+        </button>
       </div>
     </section>
 
@@ -41,6 +44,28 @@
       integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs="
       crossorigin="anonymous"
     ></script>
-    <script></script>
+
+    <script>
+      // This function loads Simpsons data from the Simpsons API
+      function fetchSimpsonJSON() {
+        const url = `https://simpsons-quotes-api.herokuapp.com/quotes`;
+        axios
+          .get(url)
+          .then(function (response) {
+            return response.data; // return an array of objects
+          })
+          .then(function (newQuote) {
+            // Build a block of HTML
+            const simpsonsHtml = `
+        <h2><strong>${newQuote[0].quote}</strong></h2>
+        <p>${newQuote[0].character}</p>
+        <img src=${newQuote[0].image} alt="${newQuote[0].character}" />
+      `;
+            document.querySelector("#simpsonsQuote").innerHTML = simpsonsHtml;
+          });
+      }
+
+      fetchSimpsonJSON();
+    </script>
   </body>
 </html>
