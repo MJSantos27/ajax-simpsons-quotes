@@ -44,16 +44,14 @@
     ></script>
 
     <script>
-      // This function loads Simpsons data from the Simpsons API
       function fetchSimpsonJSON() {
         const url = `https://simpsons-quotes-api.herokuapp.com/quotes`;
         axios
           .get(url)
           .then(function (response) {
-            return response.data; // return an array of objects
+            return response.data;
           })
           .then(function (newQuote) {
-            // Build a block of HTML
             const simpsonsHtml = `
         <h2><strong>${newQuote[0].quote}</strong></h2>
         <p>${newQuote[0].character}</p>
